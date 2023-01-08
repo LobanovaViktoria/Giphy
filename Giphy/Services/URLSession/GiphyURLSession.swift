@@ -8,7 +8,10 @@ final class GiphyURLSession: GiphyURLSessionProtocol {
     // MARK: - GiphyURLSessionProtocol
 
     init(urlSession: URLSession = URLSession.shared) {
-        self.urlSession = urlSession
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 5
+        config.timeoutIntervalForResource = 5
+        self.urlSession = URLSession(configuration: config)
     }
 
     func fetchGiphy(completion: ((Result<GiphyAPIModel, GiphyError>) -> Void)?) {

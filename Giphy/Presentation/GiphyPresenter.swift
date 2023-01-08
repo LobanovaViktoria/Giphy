@@ -49,7 +49,7 @@ extension GiphyPresenter: GiphyFactoryDelegate {
         // !Обратите внимание в каком потоке это вызывается и нужно ли вызывать дополнительно!
         DispatchQueue.main.async { [weak self] in
             // Останавливаем индикатор загрузки --
-            self?.viewController?.hideHoaler()
+            self?.viewController?.hideLoader()
             // Показать гифку --
             self?.viewController?.showGiphy(image)
         }
@@ -59,7 +59,8 @@ extension GiphyPresenter: GiphyFactoryDelegate {
         // !Обратите внимание в каком потоке это вызывается и нужно ли вызывать дополнительно!
         DispatchQueue.main.async { [weak self] in
             // Останавливаем индикатор загрузки --
-            self?.viewController?.hideHoaler()
+            self?.viewController?.hideLoader()
+            
             // Показать ошибку --
             self?.viewController?.showError()
         }

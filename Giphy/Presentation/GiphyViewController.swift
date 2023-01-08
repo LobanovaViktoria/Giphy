@@ -4,14 +4,17 @@ import UIKit
 final class GiphyViewController: UIViewController {
     
     // Переменная Int -- Счетчик залайканых или задизлайканных гифок
-    // Например showdGifCounter -- счетчика показанных гифок
-    private var showdGifCounter: Int = 0
+    // Например showGifCounter -- счетчика показанных гифок
+    private var showGifCounter: Int = 0
     
     // Переменная Int -- Количество понравившихся гифок
     // Например likedGifCounter -- счетчик любимых гифок
+    @IBOutlet weak var noButton: UIButton!
+    @IBOutlet weak var yesButton: UIButton!
     private var likedGifCounter: Int = 0
     
-   
+    private var alertPresenter: AlertPresenterProtocol?
+    
     // @IBOutlet UILabel для счетчика гифок, например 1/10
     // Например -- @IBOutlet weak var counterLabel: UILabel!
     @IBOutlet weak var counterLabel: UILabel!
@@ -25,49 +28,65 @@ final class GiphyViewController: UIViewController {
 
     // Нажатие на кнопку лайка
     @IBAction func onYesButtonTapped(_ sender: Any) {
+        giphyImageView.layer.masksToBounds = true
+        giphyImageView.layer.borderWidth = 8
+        giphyImageView.layer.borderColor = UIColor.ypGreen.cgColor
+        yesButton.isEnabled = false
+        noButton.isEnabled = false
         // Проверка на то просмотрели или нет 10 гифок
+        if showGifCounter < 10 {
+            // Иначе, если еще не просмотрели 10 гифок, то увеличиваем счетчик и обновляем UIlabel с счетчиком
 
-        // Если все 10 гифок просомтрели необходимо показать UIAlertController о завершении
-        // При нажатии на кнопку в UIAlertController необходимо сбросить счетчики и начать сначала
+            // Сохраняем понравившуюся гифку
+            // presenter.saveGif(<Созданный UIImageView для @IBOutlet>.image)
+            presenter.saveGif(giphyImageView.image)
 
-        // Иначе, если еще не просмотрели 10 гифок, то увеличиваем счетчик и обновляем UIlabel с счетчиком
-
-        // Сохраняем понравившуюся гифку
-        // presenter.saveGif(<Созданный UIImageView для @IBOutlet>.image)
-        // Например -- presenter.saveGif(giphyImageView.image)
-
-        // Загружаем следующую гифку
-        // presenter.fetchNextGiphy()
+            // Загружаем следующую гифку
+            presenter.fetchNextGiphy()
+            
+            // увеличиваем счетчик понравившихся гифок
+            likedGifCounter += 1
+        } else {
+            // Если все 10 гифок просомтрели необходимо показать UIAlertController о завершении
+            // При нажатии на кнопку в UIAlertController необходимо сбросить счетчики и начать сначала
+            showEndOfGiphy()
+        }
     }
 
     // Нажатие на кнопку дизлайка
     @IBAction func onNoButtonTapped(_ sender: Any) {
-
+        giphyImageView.layer.masksToBounds = true
+        giphyImageView.layer.borderWidth = 8
+        giphyImageView.layer.borderColor = UIColor.ypRed.cgColor
+        yesButton.isEnabled = false
+        noButton.isEnabled = false
         // Проверка на то просмотрели или нет 10 гифок
-        if showdGifCounter < 10 {
+        if showGifCounter < 10 {
             //  если еще не просмотрели 10 гифок, то увеличиваем счетчик и обновляем UIlabel с счетчиком
-           
+            
             // Загружаем следующую гифку
             presenter.fetchNextGiphy()
         } else {
-            // Если все 10 гифок просомтрели необходимо показать UIAlertController о завершении
+            
             // При нажатии на кнопку в UIAlertController необходимо сбросить счетчики и начать
-            let alertFinal = UIAlertController(    // создаем и показываем алерт
-                title: "Мемы закончились!",
-                message: "Вам понравилось n/10 ",
-                preferredStyle: .alert)
-            let action = UIAlertAction(title: "Хочу посмотерть еще \nгифок",
-                                       style: .default) { _ in
-                self.restart()
-            }
-            alertFinal.addAction(action)
-            self.present(alertFinal, animated: true, completion: nil)
+            // Если все 10 гифок просомтрели необходимо показать UIAlertController о завершении
+            showEndOfGiphy()
+            
         }
-        
-
-       
     }
-
+    
+    private func showEndOfGiphy() {
+        let action: (UIAlertAction) -> Void = { _ in
+            self.restart()
+        }
+        let alertModel = AlertModel(title: "Мемы закончились!",
+                                    message: "Вам понравилось \(likedGifCounter)/10",
+                                    buttonText: "Хочу посмотреть еще \nгифок",
+                                    action: action)
+        alertPresenter?.showAlert(alertModel)
+    }
+   
+    
     // Слой Presenter - бизнес логика приложения, к которым должен общаться UIViewController
     private lazy var presenter: GiphyPresenterProtocol = {
         let presenter = GiphyPresenter()
@@ -81,6 +100,8 @@ final class GiphyViewController: UIViewController {
         super.viewDidLoad()
         
         restart()
+        alertPresenter = AlertPresenter()
+        alertPresenter?.controller = self
     }
 }
 
@@ -91,8 +112,8 @@ private extension GiphyViewController {
     // Обновляем UILabel который находится в верхнем UIStackView и отвечает за количество просмотренных гифок
     // Обновляем счетчик просмотренных гифок UIlabel
     func updateCounterLabel() {
-        showdGifCounter += 1
-        counterLabel.text = "\(showdGifCounter)/10"
+        showGifCounter += 1
+        counterLabel.text = "\(showGifCounter)/10"
     }
 
     // Перезапускаем счетчики просмотренных гифок и понравивишихся гифок
@@ -100,7 +121,8 @@ private extension GiphyViewController {
     // Загружаем гифку
     func restart() {
         presenter.fetchNextGiphy()
-        showdGifCounter = 0
+        showGifCounter = 0
+        likedGifCounter = 0
     }
 }
 
@@ -109,41 +131,40 @@ private extension GiphyViewController {
 extension GiphyViewController: GiphyViewControllerProtocol {
     // Показ ошибки UIAlertController, что не удалось загрузить гифку
     func showError() {
+        
         // Необходимо показать UIAlertController
         // Заголовок -- Что-то пошло не так(
         // Сообщение -- не возможно загрузить данные
         // Кнопка -- Попробовать еще раз
-        //
         // При нажатии на кнопку необходимо перезагрузить гифку
-    }
-
-    func showEndOfGiphy() {
-        // Необходимо показать UIAlertController
-        // Заголовок -- Мемы закончились!
-        // Сообщение -- Вам понравилось: \(n)\\10
-        // Кнопка -- Хочу посмотреть еще гифок
-        //
-        // При нажатии сбросить все счетчики -- вызов метода restart
+       
+        let action: (UIAlertAction) -> Void = { _ in
+            self.presenter.fetchNextGiphy()
+        }
+        let alertModel = AlertModel(title: "Что-то пошло не так(",
+                                    message: "не возможно загрузить данные",
+                                    buttonText: "Попробовать еще раз",
+                                    action: action)
+        alertPresenter?.showAlert(alertModel)
     }
 
     // Показать гифку UIImage
     func showGiphy(_ image: UIImage?) {
+        yesButton.isEnabled = true
+        noButton.isEnabled = true
         giphyImageView.image = image
+        giphyImageView.contentMode = .scaleAspectFill
+        giphyImageView.layer.borderWidth = 0
         updateCounterLabel()
     }
 
     // Показать лоадер
-    // Присвоить UIImageView.image = nil
-    // Вызвать giphyActivityIndicatorView показа индикатора загрузки
-    
-        // presenter.saveGif(<Созданный UIImageView для @IBOutlet>.image)
-        // Например -- presenter.saveGif(giphyImageView.image)
     func showLoader() {
         giphyActivityIndicatorView.startAnimating()
     }
 
     // Остановить giphyActivityIndicatorView показа индикатора загрузки
-    func hideHoaler() {
+    func hideLoader() {
         giphyActivityIndicatorView.stopAnimating()
     }
 }
