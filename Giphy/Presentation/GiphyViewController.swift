@@ -22,10 +22,10 @@ final class GiphyViewController: UIViewController {
     // @IBOutlet UIImageView для Гифки
     // Например -- @IBOutlet weak var giphyImageView: UIImageView!
     @IBOutlet weak var giphyImageView: UIImageView!
-  
+    
     // @IBOutlet UIActivityIndicatorView загрузки гифки, так как она может загрухаться долго
     @IBOutlet weak var giphyActivityIndicatorView: UIActivityIndicatorView!
-
+    
     // Нажатие на кнопку лайка
     @IBAction func onYesButtonTapped(_ sender: Any) {
         giphyImageView.layer.masksToBounds = true
@@ -36,11 +36,11 @@ final class GiphyViewController: UIViewController {
         // Проверка на то просмотрели или нет 10 гифок
         if showGifCounter < 10 {
             // Иначе, если еще не просмотрели 10 гифок, то увеличиваем счетчик и обновляем UIlabel с счетчиком
-
+            
             // Сохраняем понравившуюся гифку
             // presenter.saveGif(<Созданный UIImageView для @IBOutlet>.image)
             presenter.saveGif(giphyImageView.image)
-
+            
             // Загружаем следующую гифку
             presenter.fetchNextGiphy()
             
@@ -52,7 +52,7 @@ final class GiphyViewController: UIViewController {
             showEndOfGiphy()
         }
     }
-
+    
     // Нажатие на кнопку дизлайка
     @IBAction func onNoButtonTapped(_ sender: Any) {
         giphyImageView.layer.masksToBounds = true
@@ -85,7 +85,7 @@ final class GiphyViewController: UIViewController {
                                     action: action)
         alertPresenter?.showAlert(alertModel)
     }
-   
+    
     
     // Слой Presenter - бизнес логика приложения, к которым должен общаться UIViewController
     private lazy var presenter: GiphyPresenterProtocol = {
@@ -93,9 +93,9 @@ final class GiphyViewController: UIViewController {
         presenter.viewController = self
         return presenter
     }()
-
+    
     // MARK: - Жизенный цикл экрана
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,7 +115,7 @@ private extension GiphyViewController {
         showGifCounter += 1
         counterLabel.text = "\(showGifCounter)/10"
     }
-
+    
     // Перезапускаем счетчики просмотренных гифок и понравивишихся гифок
     // Обновляем UILabel который находится в верхнем UIStackView и отвечает за количество просмотренных гифок
     // Загружаем гифку
@@ -137,7 +137,7 @@ extension GiphyViewController: GiphyViewControllerProtocol {
         // Сообщение -- не возможно загрузить данные
         // Кнопка -- Попробовать еще раз
         // При нажатии на кнопку необходимо перезагрузить гифку
-       
+        
         let action: (UIAlertAction) -> Void = { _ in
             self.presenter.fetchNextGiphy()
         }
@@ -147,7 +147,7 @@ extension GiphyViewController: GiphyViewControllerProtocol {
                                     action: action)
         alertPresenter?.showAlert(alertModel)
     }
-
+    
     // Показать гифку UIImage
     func showGiphy(_ image: UIImage?) {
         yesButton.isEnabled = true
@@ -157,12 +157,12 @@ extension GiphyViewController: GiphyViewControllerProtocol {
         giphyImageView.layer.borderWidth = 0
         updateCounterLabel()
     }
-
+    
     // Показать лоадер
     func showLoader() {
         giphyActivityIndicatorView.startAnimating()
     }
-
+    
     // Остановить giphyActivityIndicatorView показа индикатора загрузки
     func hideLoader() {
         giphyActivityIndicatorView.stopAnimating()

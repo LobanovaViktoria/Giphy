@@ -8,8 +8,8 @@
 import UIKit
 
 extension UIColor {
-  
+    
     static var ypGreen: UIColor { UIColor(named: "YPGreen")! }
     static var ypRed: UIColor { UIColor(named: "YPRed")! }
-    }
+}
 
