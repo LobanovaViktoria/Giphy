@@ -13,4 +13,8 @@ protocol GiphyViewControllerProtocol: AnyObject {
 
     // Закончить показывать индикатор загрузки гифки
     func hideLoader()
+    
+    func showEndOfGiphy()
+    
+    func currentGif() -> UIImage? 
 }

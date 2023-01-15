@@ -20,7 +20,6 @@ final class AlertPresenter: AlertPresenterProtocol {
             title: model.buttonText,
             style: .default,
             handler: model.action)
-        
         finalAlert.addAction(action)
         self.controller?.present(finalAlert, animated: true, completion: nil)
     }

@@ -7,7 +7,14 @@ protocol GiphyPresenterProtocol: AnyObject {
 
     // Метод получения случайной гифки
     func fetchNextGiphy()
-
-    // Сохранение гифки в файлы
-    func saveGif(_ image: UIImage?)
+    
+    func onYesButtonTapped()
+    
+    func onNoButtonTapped()
+    
+    func likedGifCount() -> Int
+    
+    func showGifCount() -> Int
+    
+    func restart()
 }
