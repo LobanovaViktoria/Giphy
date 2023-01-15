@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32A943802969B20A0001195B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A9437F2969B20A0001195B /* UIColor+Extension.swift */; };
+		32AA43A22968C2820048BD1C /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA43A12968C2820048BD1C /* AlertPresenter.swift */; };
+		32AA43A42968C2C60048BD1C /* AlertPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA43A32968C2C60048BD1C /* AlertPresenterProtocol.swift */; };
+		32AA43A62968C38D0048BD1C /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA43A52968C38D0048BD1C /* AlertModel.swift */; };
 		B86EC750294E75280050617B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86EC74F294E75280050617B /* AppDelegate.swift */; };
 		B86EC752294E75280050617B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86EC751294E75280050617B /* SceneDelegate.swift */; };
 		B86EC757294E75280050617B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B86EC755294E75280050617B /* Main.storyboard */; };
@@ -30,6 +34,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		32A9437F2969B20A0001195B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		32AA43A12968C2820048BD1C /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		32AA43A32968C2C60048BD1C /* AlertPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterProtocol.swift; sourceTree = "<group>"; };
+		32AA43A52968C38D0048BD1C /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		B86EC74C294E75280050617B /* Giphy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Giphy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B86EC74F294E75280050617B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B86EC751294E75280050617B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +112,7 @@
 				B8FC1961294E794500DF78F1 /* GiphyError.swift */,
 				B8FC1962294E794500DF78F1 /* GiphyModel.swift */,
 				B8FC1963294E794500DF78F1 /* GiphyAPIModel.swift */,
+				32AA43A52968C38D0048BD1C /* AlertModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -115,6 +124,8 @@
 				B8FC1966294E794500DF78F1 /* GiphyPresenterProtocol.swift */,
 				B8FC1967294E794500DF78F1 /* GiphyViewControllerProtocol.swift */,
 				B8FC1968294E794500DF78F1 /* GiphyPresenter.swift */,
+				32AA43A12968C2820048BD1C /* AlertPresenter.swift */,
+				32AA43A32968C2C60048BD1C /* AlertPresenterProtocol.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -161,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				B8FC1976294E794500DF78F1 /* Data+Gif.swift */,
+				32A9437F2969B20A0001195B /* UIColor+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -236,12 +248,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32A943802969B20A0001195B /* UIColor+Extension.swift in Sources */,
 				B8FC1984294E794500DF78F1 /* GiphyURLSession.swift in Sources */,
 				B8FC1980294E794500DF78F1 /* GiphyFactoryProtocol.swift in Sources */,
 				B8FC1982294E794500DF78F1 /* GiphyModelMapper.swift in Sources */,
+				32AA43A42968C2C60048BD1C /* AlertPresenterProtocol.swift in Sources */,
 				B8FC1983294E794500DF78F1 /* GiphyURLSessionProtocol.swift in Sources */,
 				B8FC197C294E794500DF78F1 /* GiphyViewControllerProtocol.swift in Sources */,
+				32AA43A22968C2820048BD1C /* AlertPresenter.swift in Sources */,
 				B8FC1981294E794500DF78F1 /* GiphyModelMapperProtocol.swift in Sources */,
+				32AA43A62968C38D0048BD1C /* AlertModel.swift in Sources */,
 				B8FC197F294E794500DF78F1 /* GiphyFactory.swift in Sources */,
 				B8FC197E294E794500DF78F1 /* GiphyFactoryDelegate.swift in Sources */,
 				B86EC750294E75280050617B /* AppDelegate.swift in Sources */,

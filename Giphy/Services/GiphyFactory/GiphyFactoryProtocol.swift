@@ -6,10 +6,10 @@
 protocol GiphyFactoryProtocol {
     // Делегат по которому будет возвращаться ответ из сети
     var delegate: GiphyFactoryDelegate? { get set }
-
+    
     // Коснтруктор для фабрики получени] гифок
     init(urlSession: GiphyURLSessionProtocol, mapper: GiphyModelMapperProtocol)
-
+    
     // Получение случайной гифки
     func requestNextGiphy()
 }
