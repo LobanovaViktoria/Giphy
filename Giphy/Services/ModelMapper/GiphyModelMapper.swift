@@ -10,7 +10,6 @@ final class GiphyModelMapper: GiphyModelMapperProtocol {
         else {
             return nil
         }
-
         return GiphyModel(id: id, url: url)
     }
 }

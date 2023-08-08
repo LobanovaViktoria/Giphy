@@ -9,14 +9,12 @@ final class GiphyViewController: UIViewController {
     private var alertPresenter: AlertPresenterProtocol?
     
     // @IBOutlet UILabel для счетчика гифок, например 1/10
-    // Например -- @IBOutlet weak var counterLabel: UILabel!
     @IBOutlet private weak var counterLabel: UILabel!
     
     // @IBOutlet UIImageView для Гифки
-    // Например -- @IBOutlet weak var giphyImageView: UIImageView!
     @IBOutlet private weak var giphyImageView: UIImageView!
     
-    // @IBOutlet UIActivityIndicatorView загрузки гифки, так как она может загружаться долго
+    // @IBOutlet UIActivityIndicatorView загрузки гифки
     @IBOutlet private weak var giphyActivityIndicatorView: UIActivityIndicatorView!
     
     // Слой Presenter - бизнес логика приложения, к которым должен общаться UIViewController
@@ -43,14 +41,14 @@ private extension GiphyViewController {
     // Нажатие на кнопку лайка
     @IBAction func onYesButtonTapped(_ sender: Any) {
         disableButtons()
-        highLightBorder(with: UIColor.ypGreen)
+        highLightBorder(with: .ypGreen ?? .green)
         presenter.onYesButtonTapped()
     }
     
     // Нажатие на кнопку дизлайка
     @IBAction func onNoButtonTapped(_ sender: Any) {
         disableButtons()
-        highLightBorder(with: UIColor.ypRed)
+        highLightBorder(with: .ypRed ?? .red)
         presenter.onNoButtonTapped()
     }
     
@@ -80,18 +78,15 @@ private extension GiphyViewController {
 extension GiphyViewController: GiphyViewControllerProtocol {
     // Показ ошибки UIAlertController, что не удалось загрузить гифку
     func showError() {
-        // Необходимо показать UIAlertController
-        // Заголовок -- Что-то пошло не так(
-        // Сообщение -- не возможно загрузить данные
-        // Кнопка -- Попробовать еще раз
-        // При нажатии на кнопку необходимо перезагрузить гифку
         let action: (UIAlertAction) -> Void = { _ in
             self.presenter.fetchNextGiphy()
         }
-        let alertModel = AlertModel(title: "Что-то пошло не так(",
-                                    message: "невозможно загрузить данные",
-                                    buttonText: "Попробовать еще раз",
-                                    action: action)
+        let alertModel = AlertModel(
+            title: "Что-то пошло не так(",
+            message: "невозможно загрузить данные",
+            buttonText: "Попробовать еще раз",
+            action: action
+        )
         alertPresenter?.showAlert(alertModel)
     }
     
@@ -124,10 +119,12 @@ extension GiphyViewController: GiphyViewControllerProtocol {
         let action: (UIAlertAction) -> Void = { _ in
             self.presenter.restart()
         }
-        let alertModel = AlertModel(title: "Мемы закончились!",
-                                    message: "Вам понравилось \(presenter.likedGifCount())/10",
-                                    buttonText: "Хочу посмотреть еще гифок",
-                                    action: action)
+        let alertModel = AlertModel(
+            title: "Мемы закончились!",
+            message: "Вам понравилось \(presenter.likedGifCount())/10",
+            buttonText: "Хочу посмотреть еще гифок",
+            action: action
+        )
         alertPresenter?.showAlert(alertModel)
     }
 }

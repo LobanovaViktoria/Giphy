@@ -1,10 +1,3 @@
-//
-//  AlertPresenter.swift
-//  Giphy
-//
-//  Created by Viktoria Lobanova on 06.01.2023.
-//
-
 import UIKit
 
 final class AlertPresenter: AlertPresenterProtocol {
@@ -12,7 +5,7 @@ final class AlertPresenter: AlertPresenterProtocol {
     weak var controller: UIViewController?
     
     func showAlert(_ model: AlertModel) {
-        let finalAlert = UIAlertController(    // создаем и показываем алерт
+        let finalAlert = UIAlertController(
             title: model.title,
             message: model.message,
             preferredStyle: .alert)
