@@ -4,11 +4,11 @@ Giphy - это приложение для просмотра и скачинв�
 
 ## **Ссылки**
 
-Документация [посмотреть](https://developers.giphy.com/explorer/?)
+Документация - [посмотреть](https://developers.giphy.com/explorer/?)
 
-Макет в Figma [посмотреть](https://www.figma.com/file/CFVmaTZ621FgTJHsr20sCG/Giphy-Quiz-(YP)?node-id=0%3A1&t=AyyunAewwqNoVniU-1)
+Макет в Figma - [посмотреть](https://www.figma.com/file/CFVmaTZ621FgTJHsr20sCG/Giphy-Quiz-(YP)?node-id=0%3A1&t=AyyunAewwqNoVniU-1)
 
-Скринкаст работы приложения [посмотреть](https://disk.yandex.ru/i/t81Om062Su_emg)
+Скринкаст работы приложения - [посмотреть](https://disk.yandex.ru/i/t81Om062Su_emg)
 
 ## **Иллюстрации**
 <img width="260" alt="Giphy1" src="https://github.com/LobanovaViktoria/Giphy/assets/110411999/7a8fe80e-0dd0-4367-877a-c0d112ae1529">   
